@@ -1,25 +1,24 @@
 {
-  "name": "KANHA MUSIC",
+  "name": "Kanha Music",
   "description": "A Telegram Music Player Bot, written in Python with Pyrogram and Py-Tgcalls.",
-  "logo": "https://files.catbox.moe/fh7vw7.jpg",
+  "logo": "https://files.catbox.moe/cudd9u.jpg",
   "keywords": [
-    "python3",
-    "telegram",
-    "bot",
-    "Kanha",
-    "MusicBot",
-    "telegram-bot",
-    "pyrogram"
-    ],
+  "python3",
+  "telegram",
+  "bot",
+  "MusicBot",
+  "telegram-bot",
+  "pyrogram"
+  ],
   "env": {
     "API_ID": {
       "description": "Get this value from https://my.telegram.org",
-      "value": "",
+      "value": "6435225",
       "required": true
     },
     "API_HASH": {
       "description": "Get this value from https://my.telegram.org",
-      "value": "",
+      "value": "4e984ea35f854762dcde906dce426c2d",
       "required": true
     },
     "BOT_TOKEN": {
@@ -33,12 +32,22 @@
       "required": true
     },
     "OWNER_ID": {
-      "description": "The user id of user whom you would like to add as OWNER.",
+      "description": "The user id of user whom you would like to add as OWNER.from @AnuXMusicRobot on Telegram.",
+      "value": "",
+      "required": true
+    },
+   "SUPPORT_CHANNEL": {
+      "description": "Add channel link",
+      "value": "",
+      "required": true
+    },
+      "SUPPORT_CHAT": {
+      "description": "Add Chat group & support group Link",
       "value": "",
       "required": true
     },
     "STRING_SESSION": {
-      "description": "A Pyrogram v2 String Session from @Anusession_bot on Telegram.",
+      "description": "A Pyrogram String Session from @Anusession_bot on Telegram.",
       "value": "",
       "required": true
     },
@@ -52,6 +61,21 @@
       "value": "",
       "required": false
     },
+    "START_IMG_URL": {
+      "description": "Your Bot Start Time Pic tgm link from @AnuXMusicRobot on Telegram.",
+      "value": "https://files.catbox.moe/cudd9u.jpg",
+      "required": false
+    },
+    "PING_IMG_URL": {
+      "description": "Your Bot Ping Check Time Pic tgm link from @AnuXMusicRobot on Telegram.",
+      "value": "https://files.catbox.moe/cudd9u.jpg",
+      "required": false
+    },
+    "STATS_IMG_URL": {
+      "description": "Your Bot Stats Time Pic tgm link from @AnuXMusicRobot on Telegram.",
+      "value": "https://files.catbox.moe/cudd9u.jpg",
+      "required": false
+    },
     "LOGGER_ID": {
       "description": "Your Log Group ID, add your bot and promote as an admin with full rights!. Channel ki id mat daal dena bsdk.",
       "value": "",
@@ -59,15 +83,15 @@
     }
   },
   "buildpacks": [
-    {
-      "url": "heroku/python"
-          },
-    {
-      "url": "heroku/nodejs"
-          },
-    {
-      "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"
-          }
-      ],
-  "stack": "container"
+        {
+            "url": "heroku/python"
+        },
+        {
+            "url": "heroku/nodejs"
+        },
+        {
+            "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"
+        }
+    ],
+    "stack": "container"
 }
