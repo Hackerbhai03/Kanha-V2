@@ -61,22 +61,7 @@
       "value": "",
       "required": false
     },
-    "START_IMG_URL": {
-      "description": "Your Bot Start Time Pic tgm link from @AnuXMusicRobot on Telegram.",
-      "value": "https://files.catbox.moe/cudd9u.jpg",
-      "required": false
-    },
-    "PING_IMG_URL": {
-      "description": "Your Bot Ping Check Time Pic tgm link from @AnuXMusicRobot on Telegram.",
-      "value": "https://files.catbox.moe/cudd9u.jpg",
-      "required": false
-    },
-    "STATS_IMG_URL": {
-      "description": "Your Bot Stats Time Pic tgm link from @AnuXMusicRobot on Telegram.",
-      "value": "https://files.catbox.moe/cudd9u.jpg",
-      "required": false
-    },
-    "LOGGER_ID": {
+     "LOGGER_ID": {
       "description": "Your Log Group ID, add your bot and promote as an admin with full rights!. Channel ki id mat daal dena bsdk.",
       "value": "",
       "required": true
