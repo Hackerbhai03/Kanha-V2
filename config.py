@@ -43,7 +43,7 @@ UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "main")
 GIT_TOKEN = getenv("GIT_TOKEN", "")  # Only for private repo
 
 # ✅ Support Links
-SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/aboutkanhaa")
+SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/about_kanhaa")
 SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/kanhasworld")
 
 # YT-API 
