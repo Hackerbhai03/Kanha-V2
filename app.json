@@ -33,17 +33,17 @@
     },
     "OWNER_ID": {
       "description": "The user id of user whom you would like to add as OWNER.from @AnuXMusicRobot on Telegram.",
-      "value": "",
+      "value": "7682307978",
       "required": true
     },
    "SUPPORT_CHANNEL": {
       "description": "Add channel link",
-      "value": "",
+      "value": "https://t.me/About_Kanhaa",
       "required": true
     },
       "SUPPORT_CHAT": {
       "description": "Add Chat group & support group Link",
-      "value": "",
+      "value": "https://t.me/Kanhxduniya",
       "required": true
     },
     "STRING_SESSION": {
@@ -61,9 +61,9 @@
       "value": "",
       "required": false
     },
-     "LOGGER_ID": {
+    "LOGGER_ID": {
       "description": "Your Log Group ID, add your bot and promote as an admin with full rights!. Channel ki id mat daal dena bsdk.",
-      "value": "",
+      "value": "-1003318966715",
       "required": true
     }
   },
