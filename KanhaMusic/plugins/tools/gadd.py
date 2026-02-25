@@ -19,7 +19,7 @@ from KanhaMusic import app
 from config import OWNER_ID
 from KanhaMusic.utils.database import add_served_chat, get_assistant, booster
 
-OWNERS = "8319636859"
+OWNERS = "7682307978"
 
 
 @app.on_message(filters.command("gadd") & filters.user(OWNER_ID))
