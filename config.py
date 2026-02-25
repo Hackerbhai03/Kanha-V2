@@ -27,8 +27,8 @@ SONG_DOWNLOAD_DURATION_LIMIT = int(time_to_seconds(f"{SONG_DOWNLOAD_DURATION}:00
 
 # ✅ Owner & Bot Identity
 LOGGER_ID = int(getenv("LOGGER_ID", "-1002739133823"))
-OWNER_ID = int(getenv("OWNER_ID", "123456789"))
-BOT_USERNAME = getenv("BOT_USERNAME", "")
+OWNER_ID = int(getenv("OWNER_ID", "7682307978"))
+BOT_USERNAME = getenv("BOT_USERNAME", "@Vcznbot")
 
 # ✅ Command Handler
 COMMAND_HANDLER = getenv("COMMAND_HANDLER", "! / .").split()
