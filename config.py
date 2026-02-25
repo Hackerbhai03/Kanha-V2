@@ -44,7 +44,7 @@ GIT_TOKEN = getenv("GIT_TOKEN", "")  # Only for private repo
 
 # ✅ Support Links
 SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/about_kanhaa")
-SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/kanhasworld")
+SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/kanhxduniya")
 
 # YT-API 
 API_URL = getenv("API_URL", 'https://api.nexgenbots.xyz') #youtube song url
