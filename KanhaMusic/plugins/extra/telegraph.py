@@ -9,9 +9,13 @@ def upload_file(file_path):
         url = "https://catbox.moe/user/api.php"
     data = {"reqtype": "fileupload", "json": "true"}
 
-    with open(file_path, "rb") as f:
-        files = {"fileToUpload": f}
-        response = requests.post(url, data=data, files=files)
+    def upload_file(file_path):
+    url = "https://catbox.moe/user/api.php"
+    data = {"reqtype": "fileupload", "json": "true"}
+    files = {"fileToUpload": open(file_path, "rb")}
+    
+    response = requests.post(url, data=data, files=files)
+    return response.text
 
     if response.status_code == 200:
         return True, response.text.strip()
