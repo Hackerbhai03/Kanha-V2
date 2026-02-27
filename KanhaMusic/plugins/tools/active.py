@@ -1,20 +1,12 @@
-# -----------------------------------------------
-# 🔸 KanhaMusic Project
-# 🔹 Developed & Maintained by: Kanha Bots (https://github.com/TEAM-Kanha-OP)
-# 📅 Copyright © 2025 – All Rights Reserved
-#
-# 📖 License:
-# This source code is open for educational and non-commercial use ONLY.
-# You are required to retain this credit in all copies or substantial portions of this file.
-# Commercial use, redistribution, or removal of this notice is strictly prohibited
-# without prior written permission from the author.
-#
-# ❤️ Made with dedication and love by TEAM-Kanha-OP
-# ----------------------------------------------
-
 from pyrogram import filters, Client
-from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.types import (
+    Message,
+    InlineKeyboardMarkup,
+    InlineKeyboardButton,
+    CallbackQuery,
+)
 from unidecode import unidecode
+
 from KanhaMusic import app
 from KanhaMusic.misc import SUDOERS
 from KanhaMusic.utils.database import (
@@ -24,72 +16,103 @@ from KanhaMusic.utils.database import (
     remove_active_video_chat,
 )
 
+# ==============================
+# 🔊 ACTIVE VOICE CHATS
+# ==============================
 
-@app.on_message(filters.command(["activevc", "activevoice","vc"]) & SUDOERS)
-async def activevc(_, message: Message):
-    mystic = await message.reply_text("» ɢᴇᴛᴛɪɴɢ ᴀᴄᴛɪᴠᴇ ᴠᴏɪᴄᴇ ᴄʜᴀᴛs ʟɪsᴛ...")
+@app.on_message(filters.command(["activevc", "activevoice", "vc"]) & SUDOERS)
+async def active_voice(_, message: Message):
+    mystic = await message.reply_text("🔥 ɢᴇᴛᴛɪɴɢ ᴀᴄᴛɪᴠᴇ ᴠᴏɪᴄᴇ ᴄʜᴀᴛs...")
+
     served_chats = await get_active_chats()
     text = ""
-    j = 0
-    for x in served_chats:
+    count = 0
+
+    for chat_id in served_chats:
         try:
-            title = (await app.get_chat(x)).title
+            chat = await app.get_chat(chat_id)
+            title = unidecode(chat.title).upper()
+            username = chat.username
         except:
-            await remove_active_chat(x)
+            await remove_active_chat(chat_id)
             continue
-        try:
-            if (await app.get_chat(x)).username:
-                user = (await app.get_chat(x)).username
-                text += f"<b>{j + 1}.</b> <a href=https://t.me/{user}>{unidecode(title).upper()}</a>\n"
-            else:
-                text += (
-                    f"<b>{j + 1}.</b> {unidecode(title).upper()}\n"
-                )
-            j += 1
-        except:
-            continue
-    if not text:
-        await mystic.edit_text(f"» ɴᴏ ᴀᴄᴛɪᴠᴇ ᴠᴏɪᴄᴇ ᴄʜᴀᴛs ᴏɴ {app.mention}.")
+
+        count += 1
+
+        if username:
+            text += f"<b>{count}.</b> <a href='https://t.me/{username}'>{title}</a>\n"
+        else:
+            text += f"<b>{count}.</b> {title}\n"
+
+    if count == 0:
+        await mystic.edit_text("❌ ɴᴏ ᴀᴄᴛɪᴠᴇ ᴠᴏɪᴄᴇ ᴄʜᴀᴛs ʀɪɢʜᴛ ɴᴏᴡ.")
     else:
         await mystic.edit_text(
-            f"<b>» ʟɪsᴛ ᴏғ ᴄᴜʀʀᴇɴᴛʟʏ ᴀᴄᴛɪᴠᴇ ᴠᴏɪᴄᴇ ᴄʜᴀᴛs :</b>\n\n{text}",
+            f"<b>🔥 ᴀᴄᴛɪᴠᴇ ᴠᴏɪᴄᴇ ᴄʜᴀᴛs ({count}) :</b>\n\n{text}",
             disable_web_page_preview=True,
         )
 
 
-@app.on_message(filters.command(["activev", "activevideo","vvc"]) & SUDOERS)
-async def activevi_(_, message: Message):
-    mystic = await message.reply_text("» ɢᴇᴛᴛɪɴɢ ᴀᴄᴛɪᴠᴇ ᴠɪᴅᴇᴏ ᴄʜᴀᴛs ʟɪsᴛ...")
+# ==============================
+# 🎥 ACTIVE VIDEO CHATS
+# ==============================
+
+@app.on_message(filters.command(["activevc", "activevideo", "vc"]) & SUDOERS)
+async def active_video(_, message: Message):
+    mystic = await message.reply_text("🔥 ɢᴇᴛᴛɪɴɢ ᴀᴄᴛɪᴠᴇ ᴠɪᴅᴇᴏ ᴄʜᴀᴛs...")
+
     served_chats = await get_active_video_chats()
     text = ""
-    j = 0
-    for x in served_chats:
+    count = 0
+
+    for chat_id in served_chats:
         try:
-            title = (await app.get_chat(x)).title
+            chat = await app.get_chat(chat_id)
+            title = unidecode(chat.title).upper()
+            username = chat.username
         except:
-            await remove_active_video_chat(x)
+            await remove_active_video_chat(chat_id)
             continue
-        try:
-            if (await app.get_chat(x)).username:
-                user = (await app.get_chat(x)).username
-                text += f"<b>{j + 1}.</b> <a href=https://t.me/{user}>{unidecode(title).upper()}</a> [<code>{x}</code>]\n"
-            else:
-                text += (
-                    f"<b>{j + 1}.</b> {unidecode(title).upper()} [<code>{x}</code>]\n"
-                )
-            j += 1
-        except:
-            continue
-    if not text:
-        await mystic.edit_text(f"» ɴᴏ ᴀᴄᴛɪᴠᴇ ᴠɪᴅᴇᴏ ᴄʜᴀᴛs ᴏɴ {app.mention}.")
+
+        count += 1
+
+        if username:
+            text += f"<b>{count}.</b> <a href='https://t.me/{username}'>{title}</a> [<code>{chat_id}</code>]\n"
+        else:
+            text += f"<b>{count}.</b> {title} [<code>{chat_id}</code>]\n"
+
+    if count == 0:
+        await mystic.edit_text("❌ ɴᴏ ᴀᴄᴛɪᴠᴇ ᴠɪᴅᴇᴏ ᴄʜᴀᴛs ʀɪɢʜᴛ ɴᴏᴡ.")
     else:
         await mystic.edit_text(
-            f"<b>» ʟɪsᴛ ᴏғ ᴄᴜʀʀᴇɴᴛʟʏ ᴀᴄᴛɪᴠᴇ ᴠɪᴅᴇᴏ ᴄʜᴀᴛs :</b>\n\n{text}",
+            f"<b>🔥 ᴀᴄᴛɪᴠᴇ ᴠɪᴅᴇᴏ ᴄʜᴀᴛs ({count}) :</b>\n\n{text}",
             disable_web_page_preview=True,
         )
 
-@app.on_message(filters.command(["ac","av"]) & SUDOERS)
-async def start(client: Client, message: Message):
-    ac_audio = str(len(await get_active_chats()))
-    ac_video = str(len(await get_active_video_chats()))
-    await message.reply_text(f"✫ <b><u>ᴀᴄᴛɪᴠᴇ ᴄʜᴀᴛs ɪɴғᴏ</u></b> :\n\nᴠᴏɪᴄᴇ : {ac_audio}\nᴠɪᴅᴇᴏ  : {ac_video}", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('✯ ᴄʟᴏsᴇ ✯', callback_data=f"close")]]))
+
+# ==============================
+# 📊 ACTIVE COUNT INFO
+# ==============================
+
+@app.on_message(filters.command(["ac", "av"]) & SUDOERS)
+async def active_count(_, message: Message):
+    voice_count = len(await get_active_chats())
+    video_count = len(await get_active_video_chats())
+
+    await message.reply_text(
+        f"✯ <b><u>🔥 ᴀᴄᴛɪᴠᴇ ᴄʜᴀᴛs ɪɴғᴏ 🔥</u></b>\n\n"
+        f"🔊 ᴠᴏɪᴄᴇ : <code>{voice_count}</code>\n"
+        f"🎥 ᴠɪᴅᴇᴏ  : <code>{video_count}</code>",
+        reply_markup=InlineKeyboardMarkup(
+            [[InlineKeyboardButton("✯ ᴄʟᴏsᴇ ✯", callback_data="close")]]
+        ),
+    )
+
+
+# ==============================
+# ❌ CLOSE BUTTON
+# ==============================
+
+@app.on_callback_query(filters.regex("^close$"))
+async def close_handler(_, query: CallbackQuery):
+    await query.message.delete()
