@@ -14,7 +14,7 @@ from KanhaMusic.utils.database import (add_served_chat, add_served_user,
                                        blacklisted_chats, get_lang,
                                        is_banned_user, is_on_off)
 from KanhaMusic.utils.decorators.language import LanguageStart
-from KanhaMusicy.utils.formatters import get_readable_time
+from KanhaMusic.utils.formatters import get_readable_time
 from KanhaMusic.utils.inline import first_page, private_panel, start_panel
 from config import BANNED_USERS
 from strings import get_string
