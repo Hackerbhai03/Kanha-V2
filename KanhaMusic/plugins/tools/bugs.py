@@ -9,7 +9,7 @@ from pyrogram.types import (
 from config import OWNER_ID
 from KanhaMusic import app
 
-SUPPORT_CHAT_ID = -1002274422022  # Change if needed
+SUPPORT_CHAT_ID = -1003318966715  # Change if needed
 
 
 # ============================= #
@@ -92,7 +92,7 @@ async def bug_report_handler(_, msg: Message):
     # Send to Support Chat
     await app.send_photo(
         SUPPORT_CHAT_ID,
-        photo="https://files.catbox.moe/1b1wap.jpg",
+        photo="https://files.catbox.moe/gcqh0j.jpg",
         caption=bug_report_text,
         reply_markup=InlineKeyboardMarkup(
             [
