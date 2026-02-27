@@ -5,51 +5,59 @@ from pymongo.errors import ServerSelectionTimeoutError, ConfigurationError
 import re
 from KanhaMusic import app as Kanha
 
-# ✦ Mongo URL Pattern
+# ✦ Mongo URL Regex
 MONGO_URL_PATTERN = re.compile(r"^mongodb(\+srv)?:\/\/[^\s]+$")
 
-
-@Kanha.on_message(filters.command("mongochk"))
-async def mongo_command(client, message: Message):
-
-    ADD_ME_BUTTON = InlineKeyboardMarkup(
+# ✦ Add Bot Button
+def add_me_button():
+    return InlineKeyboardMarkup(
         [[
             InlineKeyboardButton(
-                "✧ ᴀᴅᴅ ϻє ᴛᴏ ʏσυʀ ɢʀσυᴘ ✧",
+                "➕ 𝐀ᴅᴅ 𝐌ᴇ 𝐓ᴏ 𝐆ʀᴏᴜᴘ ➕",
                 url=f"https://t.me/{Kanha.username}?startgroup=true"
             )
         ]]
     )
 
-    # ❌ No URL
+
+# ============================= #
+# 💾 𝐌ᴏɴɢᴏ 𝐂ʜᴇᴄᴋ 𝐂ᴏᴍᴍᴀɴᴅ
+# ============================= #
+
+@Kanha.on_message(filters.command("mongochk"))
+async def mongo_command(client, message: Message):
+
+    # ❌ No URL Provided
     if len(message.command) < 2:
         return await message.reply_text(
-            "╭━━━〔 💾 ᴍᴏɴɢᴏ ᴄʜᴇᴄᴋᴇʀ 💾 〕━━━╮\n"
-            "┃ ✘ ᴘʟᴇᴀsᴇ ᴇɴᴛᴇʀ ʏᴏᴜʀ ᴍᴏɴɢᴏ ᴜʀʟ\n"
+            "╭━━━〔 💾 𝐌ᴏɴɢᴏ 𝐂ʜᴇᴄᴋᴇʀ 💾 〕━━━╮\n"
+            "┃ ✘ 𝐏ʟᴇᴀsᴇ 𝐏ʀᴏᴠɪᴅᴇ 𝐌ᴏɴɢᴏ 𝐔𝐑𝐋\n"
             "┃ \n"
-            "┃ ✎ ᴇxᴀᴍᴘʟᴇ :\n"
+            "┃ ✎ 𝐄xᴀᴍᴘʟᴇ:\n"
             "┃ `/mongochk mongodb+srv://user:pass@cluster.mongodb.net/`\n"
             "╰━━━━━━━━━━━━━━━━━━━━╯",
-            reply_markup=ADD_ME_BUTTON
+            reply_markup=add_me_button()
         )
 
     mongo_url = message.command[1].strip()
 
     # ❌ Invalid Format
-    if not re.match(MONGO_URL_PATTERN, mongo_url):
+    if not MONGO_URL_PATTERN.match(mongo_url):
         return await message.reply_text(
-            "╭━━━〔 ⚠ ᴇʀʀᴏʀ ⚠ 〕━━━╮\n"
-            "┃ 💔 ɪɴᴠᴀʟɪᴅ ᴍᴏɴɢᴏᴅʙ ᴜʀʟ ꜰᴏʀᴍᴀᴛ\n"
+            "╭━━━〔 ⚠️ 𝐈ɴᴠᴀʟɪᴅ 𝐅ᴏʀᴍᴀᴛ ⚠️ 〕━━━╮\n"
+            "┃ 💔 𝐖ʀᴏɴɢ 𝐌ᴏɴɢᴏ𝐃𝐁 𝐔𝐑𝐋\n"
             "┃ \n"
-            "┃ ✔ ꜱᴛᴀʀᴛ ᴡɪᴛʜ : mongodb://\n"
-            "┃ ✔ ᴏʀ : mongodb+srv://\n"
+            "┃ ✔ 𝐒ʜᴏᴜʟᴅ 𝐒ᴛᴀʀᴛ 𝐖ɪᴛʜ:\n"
+            "┃ ➜ mongodb://\n"
+            "┃ ➜ mongodb+srv://\n"
             "╰━━━━━━━━━━━━━━━━━━━━╯",
-            reply_markup=ADD_ME_BUTTON
+            reply_markup=add_me_button()
         )
 
+    # 🔄 Checking Message
     checking_msg = await message.reply_text(
-        "╭━━━〔 🔄 ᴘʀᴏᴄᴇssɪɴɢ 🔄 〕━━━╮\n"
-        "┃ ⏳ ᴄʜᴇᴄᴋɪɴɢ ᴍᴏɴɢᴏᴅʙ ᴄᴏɴɴᴇᴄᴛɪᴏɴ...\n"
+        "╭━━━〔 🔄 𝐏ʀᴏᴄᴇssɪɴɢ 🔄 〕━━━╮\n"
+        "┃ ⏳ 𝐂ʜᴇᴄᴋɪɴɢ 𝐌ᴏɴɢᴏ𝐃𝐁 𝐂ᴏɴɴᴇᴄᴛɪᴏɴ...\n"
         "╰━━━━━━━━━━━━━━━━━━━━╯"
     )
 
@@ -63,36 +71,36 @@ async def mongo_command(client, message: Message):
         mongo_client.server_info()
 
         await checking_msg.edit_text(
-            "╭━━━〔 ✅ sᴜᴄᴄᴇss ✅ 〕━━━╮\n"
-            "┃ 🎉 ᴍᴏɴɢᴏᴅʙ ᴄᴏɴɴᴇᴄᴛᴇᴅ sᴜᴄᴄᴇssғᴜʟʟʏ\n"
+            "╭━━━〔 ✅ 𝐒ᴜᴄᴄᴇss ✅ 〕━━━╮\n"
+            "┃ 🎉 𝐌ᴏɴɢᴏ𝐃𝐁 𝐂ᴏɴɴᴇᴄᴛᴇᴅ 𝐒ᴜᴄᴄᴇssғᴜʟʟʏ\n"
             "┃ \n"
-            f"┃ ✦ ᴄʜᴇᴄᴋᴇᴅ ʙʏ : {Kanha.mention}\n"
+            f"┃ 👤 𝐂ʜᴇᴄᴋᴇᴅ 𝐁ʏ: {message.from_user.mention}\n"
             "╰━━━━━━━━━━━━━━━━━━━━╯",
-            reply_markup=ADD_ME_BUTTON
+            reply_markup=add_me_button()
         )
 
     except ServerSelectionTimeoutError:
         await checking_msg.edit_text(
-            "╭━━━〔 ⏰ ᴛɪᴍᴇᴏᴜᴛ ⏰ 〕━━━╮\n"
-            "┃ ❌ ᴄᴏɴɴᴇᴄᴛɪᴏɴ ᴛɪᴍᴇᴅ ᴏᴜᴛ\n"
-            "┃ 🌐 ᴄʜᴇᴄᴋ ɴᴇᴛᴡᴏʀᴋ / ᴄʟᴜsᴛᴇʀ\n"
+            "╭━━━〔 ⏰ 𝐓ɪᴍᴇᴏᴜᴛ ⏰ 〕━━━╮\n"
+            "┃ ❌ 𝐂ᴏɴɴᴇᴄᴛɪᴏɴ 𝐓ɪᴍᴇᴅ 𝐎ᴜᴛ\n"
+            "┃ 🌐 𝐂ʜᴇᴄᴋ 𝐍ᴇᴛᴡᴏʀᴋ / 𝐂ʟᴜsᴛᴇʀ\n"
             "╰━━━━━━━━━━━━━━━━━━━━╯",
-            reply_markup=ADD_ME_BUTTON
+            reply_markup=add_me_button()
         )
 
     except ConfigurationError:
         await checking_msg.edit_text(
-            "╭━━━〔 ⚙ ᴄᴏɴғɪɢ ᴇʀʀᴏʀ ⚙ 〕━━━╮\n"
-            "┃ ❌ ɪɴᴠᴀʟɪᴅ ᴜsᴇʀɴᴀᴍᴇ / ᴘᴀssᴡᴏʀᴅ\n"
-            "┃ 🔐 ᴄʜᴇᴄᴋ ᴄʟᴜsᴛᴇʀ sᴇᴛᴛɪɴɢs\n"
+            "╭━━━〔 ⚙️ 𝐂ᴏɴғɪɢ 𝐄ʀʀᴏʀ ⚙️ 〕━━━╮\n"
+            "┃ ❌ 𝐈ɴᴠᴀʟɪᴅ 𝐔sᴇʀɴᴀᴍᴇ / 𝐏ᴀssᴡᴏʀᴅ\n"
+            "┃ 🔐 𝐂ʜᴇᴄᴋ 𝐂ʟᴜsᴛᴇʀ 𝐒ᴇᴛᴛɪɴɢs\n"
             "╰━━━━━━━━━━━━━━━━━━━━╯",
-            reply_markup=ADD_ME_BUTTON
+            reply_markup=add_me_button()
         )
 
     except Exception as e:
         await checking_msg.edit_text(
-            "╭━━━〔 💥 ғᴀɪʟᴇᴅ 💥 〕━━━╮\n"
-            f"┃ ❌ {str(e)}\n"
+            "╭━━━〔 💥 𝐅ᴀɪʟᴇᴅ 💥 〕━━━╮\n"
+            f"┃ ❌ 𝐄ʀʀᴏʀ: {str(e)}\n"
             "╰━━━━━━━━━━━━━━━━━━━━╯",
-            reply_markup=ADD_ME_BUTTON
+            reply_markup=add_me_button()
         )
