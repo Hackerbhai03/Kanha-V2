@@ -26,18 +26,20 @@ from pathlib import Path
 from pyrogram.enums import ParseMode
 
 photo = [
-    "https://files.catbox.moe/fh7vw7.jpg",
-    "https://files.catbox.moe/lckxh6.jpg",
-    "https://files.catbox.moe/smteo6.jpg",
-    "https://files.catbox.moe/7enu2i.jpg",
-    "https://files.catbox.moe/n6hkvd.jpg",
-    "https://files.catbox.moe/ej1p7t.jpg",
-    "https://files.catbox.moe/fh7vw7.jpg",
-    "https://files.catbox.moe/lckxh6.jpg",
-    "https://files.catbox.moe/smteo6.jpg",
-    "https://files.catbox.moe/7enu2i.jpg",
-    "https://files.catbox.moe/n6hkvd.jpg",
-    "https://files.catbox.moe/ej1p7t.jpg"
+    
+    "https://files.catbox.moe/vbdda6.jpg",
+    "https://files.catbox.moe/3up9ky.jpg",
+    "https://files.catbox.moe/jktiak.jpg",
+    "https://files.catbox.moe/0n4439.jpg",
+    "https://files.catbox.moe/l2id2z.jpg",
+    "https://files.catbox.moe/l2id2z.jpg",
+    "https://files.catbox.moe/8c6zfn.jpg",
+    "https://files.catbox.moe/to3v10.jpg",
+    "https://files.catbox.moe/mcqu0j.jpg",
+    "https://files.catbox.moe/2803m5.jpg",
+    "https://files.catbox.moe/gf3142.jpg",
+    "https://files.catbox.moe/gcqh0j.jpg"
+
 ]
 
 @app.on_message(filters.new_chat_members, group=2)
