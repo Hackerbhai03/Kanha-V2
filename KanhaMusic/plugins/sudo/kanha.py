@@ -4,7 +4,7 @@ from KanhaMusic import app, userbot
 from KanhaMusic.misc import SUDOERS
 from pyrogram import * 
 from pyrogram.types import *
-from KanhaMusic.utils.purvi_ban import admin_filter
+from KanhaMusic.utils.kanha_ban import admin_filter
 
 
 kanha_text = [
