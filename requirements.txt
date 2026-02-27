@@ -26,4 +26,4 @@ yt-dlp
 youtube-search
 youtube-search-python
 py-yt-search
-
+pytgcalls==2.1.0
