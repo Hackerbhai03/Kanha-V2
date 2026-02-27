@@ -31,6 +31,15 @@ EFFECT_ID = [
 ]
 
 
+START_IMAGES = [
+    "https://files.catbox.moe/2bia7i.jpg",
+    "https://files.catbox.moe/vr5r9r.jpg",
+    "https://files.catbox.moe/pltowg.jpg",
+    "https://files.catbox.moe/cudd9u.jpg"
+]
+
+
+
 @app.on_message(filters.command(["start"]) & filters.private & ~BANNED_USERS)
 @LanguageStart
 async def start_pm(client, message: Message, _):
