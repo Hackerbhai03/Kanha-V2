@@ -9,7 +9,7 @@ from KanhaMusic import app as Kanha
 MONGO_URL_PATTERN = re.compile(r"^mongodb(\+srv)?:\/\/[^\s]+$")
 
 
-@Sona.on_message(filters.command("mongochk"))
+@Kanha.on_message(filters.command("mongochk"))
 async def mongo_command(client, message: Message):
 
     ADD_ME_BUTTON = InlineKeyboardMarkup(
