@@ -1,5 +1,7 @@
+gTTS
 aiofiles
 aiohttp
+asyncio
 beautifulsoup4
 dnspython
 ffmpeg-python
@@ -10,20 +12,21 @@ httpx
 motor
 numpy
 opencv-python
-pillow
+pytz
+pillow==9.5.0
 psutil
-py-tgcalls
-pytgcrypto
-kurigram==2.1.35
+py-tgcalls==0.9.7
+pykeyboard
+pyrofork
 python-dotenv
 pyyaml
 requests
 speedtest-cli
 spotipy
+tgcrypto
+telegraph 
 unidecode
-uvloop==0.21.0; sys_platform != "win32"
-yt-dlp
 youtube-search
 youtube-search-python
 py-yt-search
-pytgcalls==2.1.0
+yt-dlp
