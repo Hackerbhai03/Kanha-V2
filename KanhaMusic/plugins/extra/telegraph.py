@@ -1,38 +1,30 @@
-# -----------------------------------------------
-# 🔸 KanhaMusic Project
-# 🔹 Developed & Maintained by: Kanha Bots (https://github.com/TEAM-Kanha-OP)
-# 📅 Copyright © 2025 – All Rights Reserved
-#
-# 📖 License:
-# This source code is open for educational and non-commercial use ONLY.
-# You are required to retain this credit in all copies or substantial portions of this file.
-# Commercial use, redistribution, or removal of this notice is strictly prohibited
-# without prior written permission from the author.
-#
-# ❤️ Made with dedication and love by TEAM-Kanha-OP
-# -----------------------------------------------
-
 import os
-import requests
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from KanhaMusic import app
+import requests
+
 
 def upload_file(file_path):
-    url = "https://catbox.moe/user/api.php"
+        url = "https://catbox.moe/user/api.php"
     data = {"reqtype": "fileupload", "json": "true"}
-    with open(file_path, "rb") as file:
-        response = requests.post(url, data=data, files={"fileToUpload": file})
+
+    with open(file_path, "rb") as f:
+        files = {"fileToUpload": f}
+        response = requests.post(url, data=data, files=files)
+
     if response.status_code == 200:
         return True, response.text.strip()
     else:
-        return False, f"Error: {response.status_code} - {response.text}"
+        return False, f"⚠️ 𝐄ʀʀᴏʀ : {response.status_code}"
 
-@app.on_message(filters.command(["tgm", "tm", "telegraph", "tl"]))
+
+@app.on_message(filters.command(["tgm", "tgt", "telegraph", "tl"]))
 async def get_link_group(client, message):
+
     if not message.reply_to_message:
         return await message.reply_text(
-            "⚠️ ᴘʟᴇᴀsᴇ ʀᴇᴘʟʏ ᴛᴏ ᴀ ᴍᴇᴅɪᴀ ғɪʟᴇ ᴛᴏ ᴜᴘʟᴏᴀᴅ."
+            "❌ 𝐑ᴇᴘʟʏ ᴛᴏ ᴀ 𝐌ᴇᴅɪᴀ ғɪʟᴇ ᴛᴏ ᴜᴘʟᴏᴀᴅ ɪᴛ ✨"
         )
 
     media = message.reply_to_message
@@ -45,47 +37,55 @@ async def get_link_group(client, message):
     elif media.document:
         file_size = media.document.file_size
 
-    if file_size == 0:
-        return await message.reply_text("⚠️ ᴛʜɪs ᴍᴇssᴀɢᴇ ᴅᴏᴇsɴ'ᴛ ᴄᴏɴᴛᴀɪɴ ᴀɴʏ ᴅᴏᴡɴʟᴏᴀᴅᴀʙʟᴇ ᴍᴇᴅɪᴀ.")
-
     if file_size > 200 * 1024 * 1024:
-        return await message.reply_text("⚠️ ᴘʟᴇᴀsᴇ ᴘʀᴏᴠɪᴅᴇ ᴀ ᴍᴇᴅɪᴀ ғɪʟᴇ ᴜɴᴅᴇʀ 200MB.")
+        return await message.reply_text(
+            "⚠️ 𝐅ɪʟᴇ ᴍᴜsᴛ ʙᴇ ᴜɴᴅᴇʀ 𝟐𝟎𝟎 𝐌𝐁"
+        )
 
-    text = await message.reply("🔄 ᴘʀᴏᴄᴇssɪɴɢ ʏᴏᴜʀ ғɪʟᴇ...")
+    status = await message.reply_text("⏳ 𝐏ʀᴏᴄᴇssɪɴɢ 𝐘ᴏᴜʀ 𝐅ɪʟᴇ...")
 
     async def progress(current, total):
         try:
-            await text.edit_text(f"ᴅᴏᴡɴʟᴏᴀᴅɪɴɢ... {current * 100 / total:.1f}%")
-        except Exception:
+            percent = current * 100 / total
+            await status.edit_text(f"📥 𝐃ᴏᴡɴʟᴏᴀᴅɪɴɢ... {percent:.1f}%")
+        except:
             pass
 
     try:
         local_path = await media.download(progress=progress)
 
-        if not os.path.exists(local_path):
-            return await text.edit_text("❌ Failed to download the media.")
+        await status.edit_text("📤 𝐔ᴘʟᴏᴀᴅɪɴɢ 𝐓ᴏ 𝐓ᴇʟᴇɢʀᴀᴘʜ...")
 
-        await text.edit_text("ᴜᴘʟᴏᴀᴅᴇᴅ ᴛᴏ ᴄᴀᴛʙᴏx...")
-
-        success, result = upload_file(local_path)
+        success, upload_path = upload_file(local_path)
 
         if success:
-            await message.reply_photo(
-                local_path,
-                caption=f"✨ {message.from_user.mention(style='md')}, this is your uploaded media!",
+            await status.edit_text(
+                "✨ 𝐔ᴘʟᴏᴀᴅ 𝐒ᴜᴄᴄᴇssғᴜʟ ✨\n\n"
+                f"🔗 𝐘ᴏᴜʀ 𝐋ɪɴᴋ 𝐈s 𝐑ᴇᴀᴅʏ!",
                 reply_markup=InlineKeyboardMarkup(
-                    [[InlineKeyboardButton("ʏᴏᴜʀ ᴛᴇʟᴇɢʀᴀᴘʜ ʟɪɴᴋ", url=result)]]
+                    [
+                        [
+                            InlineKeyboardButton(
+                                "🚀 𝐎ᴘᴇɴ 𝐓ᴇʟᴇɢʀᴀᴘʜ 𝐋ɪɴᴋ",
+                                url=upload_path,
+                            )
+                        ]
+                    ]
                 ),
             )
         else:
-            await text.edit_text(f"❌ ᴜᴘʟᴏᴀᴅ ғᴀɪʟᴇᴅ!\nError: {result}")
+            await status.edit_text(
+                f"❌ 𝐔ᴘʟᴏᴀᴅ 𝐅ᴀɪʟᴇᴅ\n\n{upload_path}"
+            )
+
+        os.remove(local_path)
 
     except Exception as e:
-        await text.edit_text(f"❌ ᴀɴ ᴇʀʀᴏʀ ᴏᴄᴄᴜʀʀᴇᴅ:\n{e}")
-
-    finally:
+        await status.edit_text(
+            f"⚠️ 𝐒ᴏᴍᴇᴛʜɪɴɢ 𝐖ᴇɴᴛ 𝐖ʀᴏɴɢ!\n\n"
+            f"❍ 𝐑ᴇᴀsᴏɴ: `{e}`"
+        )
         try:
-            if os.path.exists(local_path):
-                os.remove(local_path)
-        except Exception:
+            os.remove(local_path)
+        except:
             pass
