@@ -60,7 +60,7 @@ async def show_bot_info(c: app, q: CallbackQuery):
     x = await c.send_message(q.message.chat.id, "ᴘɪɴɢ ᴘᴏɴɢ 💕..")
     delta_ping = time() - start
     await x.delete()
-    txt = f"""💌 ᴘɪɴɢ ᴘᴏɴɢ ʙᴀʙʏ...
+    txt = f"""📼 ᴘɪɴɢ ᴘᴏɴɢ ʙᴀʙʏ...
 
 • ᴅᴀᴛᴀʙᴀsᴇ: ᴏɴʟɪɴᴇ
 • ʏᴏᴜᴛᴜʙᴇ ᴀᴘɪ: ʀᴇsᴘᴏɴsɪᴠᴇ
