@@ -5,9 +5,9 @@ from config import OWNER_ID
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram.enums import ChatType, ChatMemberStatus
 from strings import get_string
-from KanhaMusic.utils import SonaBin
+from KanhaMusic.utils import KanhaBin
 from KanhaMusic.utils.database import get_assistant, get_lang
-from KanhaMusic.core.call import Sona
+from KanhaMusic.core.call import Kanha
 
 async def is_admin(_, __, message):
     try:
