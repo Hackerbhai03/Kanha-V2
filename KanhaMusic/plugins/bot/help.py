@@ -11,18 +11,18 @@ from config import BANNED_USERS, SUPPORT_CHAT
 from strings import get_string, helpers
 
 Kanha_PIC = [
-    "https://files.catbox.moe/a6hzmb.jpg",
-    "https://files.catbox.moe/a6hzmb.jpg",
-    "https://files.catbox.moe/a6hzmb.jpg",
-    "https://files.catbox.moe/a6hzmb.jpg",
-    "https://files.catbox.moe/a6hzmb.jpg",
-    "https://files.catbox.moe/a6hzmb.jpg",
-    "https://files.catbox.moe/a6hzmb.jpg",
-    "https://files.catbox.moe/a6hzmb.jpg",
-    "https://files.catbox.moe/a6hzmb.jpg",
-    "https://files.catbox.moe/a6hzmb.jpg",
-    "https://files.catbox.moe/a6hzmb.jpg",
-    "https://files.catbox.moe/a6hzmb.jpg"
+    "https://files.catbox.moe/ohezme.jpg",
+    "https://files.catbox.moe/ohezme.jpg",
+    "https://files.catbox.moe/ohezme.jpg",
+    "https://files.catbox.moe/ohezme.jpg",
+    "https://files.catbox.moe/ohezme.jpg",
+    "https://files.catbox.moe/ohezme.jpg",
+    "https://files.catbox.moe/ohezme.jpg",
+    "https://files.catbox.moe/ohezme.jpg",
+    "https://files.catbox.moe/ohezme.jpg",
+    "https://files.catbox.moe/ohezme.jpg",
+    "https://files.catbox.moe/ohezme.jpg",
+    "https://files.catbox.moe/ohezme.jpg"
 ]
 
 
