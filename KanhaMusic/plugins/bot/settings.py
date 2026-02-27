@@ -82,7 +82,7 @@ async def support(client, CallbackQuery, _):
         reply_markup=InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton(text="ᴅᴇᴠs", user_id=config.OWNER_ID),
+                    InlineKeyboardButton(text="ᴏᴡɴᴇʀ", user_id=config.OWNER_ID),
                 ],
                 [
                     InlineKeyboardButton(text="sᴜᴘᴘᴏʀᴛ", url=config.SUPPORT_CHAT),
