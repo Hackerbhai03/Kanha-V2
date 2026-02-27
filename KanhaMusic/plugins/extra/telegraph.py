@@ -1,27 +1,22 @@
 import os
+import requests
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from KanhaMusic import app
-import requests
 
 
 def upload_file(file_path):
-        url = "https://catbox.moe/user/api.php"
-    data = {"reqtype": "fileupload", "json": "true"}
-
-    def upload_file(file_path):
     url = "https://catbox.moe/user/api.php"
-    data = {"reqtype": "fileupload", "json": "true"}
-    files = {"fileToUpload": open(file_path, "rb")}
+    data = {"reqtype": "fileupload"}
     
-    response = requests.post(url, data=data, files=files)
-    return response.text
+    with open(file_path, "rb") as f:
+        files = {"fileToUpload": f}
+        response = requests.post(url, data=data, files=files)
 
     if response.status_code == 200:
         return True, response.text.strip()
     else:
-        return False, f"⚠️ 𝐄ʀʀᴏʀ : {response.status_code}"
-
+        return False, f"⚠️ 𝐄ʀʀᴏʀ: {response.status_code}"
 
 @app.on_message(filters.command(["tgm", "tgt", "telegraph", "tl"]))
 async def get_link_group(client, message):
