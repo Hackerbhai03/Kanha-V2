@@ -1,16 +1,16 @@
+import time, asyncio
 import random
-import time
-import asyncio
-
-from youtubesearchpython.__future__ import VideosSearch
 from pyrogram import filters
 from pyrogram.enums import ChatType
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
+from youtubesearchpython.__future__ import VideosSearch
 
 import config
 from KanhaMusic import app
 from KanhaMusic.misc import _boot_
 from KanhaMusic.plugins.sudo.sudoers import sudoers_list
+from KanhaMusic.utils.database import get_served_chats, get_served_users, get_sudoers
+from KanhaMusic.utils import bot_sys_stats
 from KanhaMusic.utils.database import (
     add_served_chat,
     add_served_user,
@@ -25,134 +25,151 @@ from KanhaMusic.utils.inline import help_pannel, private_panel, start_panel
 from config import BANNED_USERS
 from strings import get_string
 
-
-EFFECT_ID = [
-    5104841245755180586,
-    5107584321108051014,
+NEXIO = [
+    "https://files.catbox.moe/x5lytj.jpg",
+    "https://files.catbox.moe/psya34.jpg",
+    "https://files.catbox.moe/leaexg.jpg",
+    "https://files.catbox.moe/b0e4vk.jpg",
+    "https://files.catbox.moe/1b1wap.jpg",
+    "https://files.catbox.moe/ommjjk.jpg",
+    "https://files.catbox.moe/onurxm.jpg",
+    "https://files.catbox.moe/97v75k.jpg",
+    "https://files.catbox.moe/t833zy.jpg",
+    "https://files.catbox.moe/472piq.jpg",
+    "https://files.catbox.moe/qwjeyk.jpg",
+    "https://files.catbox.moe/t0hopv.jpg",
+    "https://files.catbox.moe/u5ux0j.jpg",
+    "https://files.catbox.moe/h1yk4w.jpg",
+    "https://files.catbox.moe/gl5rg8.jpg",
 ]
 
-# 🔥 BOOM STYLE CAPTIONS
-START_CAPTION_PM = """
-💥 𝐁𝐎𝐎𝐌 💥
 
-{0} 𝗪𝗲𝗹𝗰𝗼𝗺𝗲 𝗧𝗼 𝗧𝗵𝗲 𝗠𝗼𝘀𝘁 𝗗𝗮𝗻𝗴𝗲𝗿𝗼𝘂𝘀 𝗠𝘂𝘀𝗶𝗰 𝗕𝗼𝘁 ⚡
+REVANGE_STKR = [
+    "CAACAgUAAxkBAAIBO2i1Spi48ZdWCNehv-GklSI9aRYWAAJ9GAACXB-pVds_sm8brMEqHgQ",
+    "CAACAgUAAxkBAAIBOmi1Sogwaoh01l5-e-lJkK1VNY6MAAIlGAACKI6wVVNEvN-6z3Z7HgQ",
+    "CAACAgUAAxkBAAIBPGi1Spv1tlx90xM1Q7TRNyL0fhcJAAKDGgACZSupVbmJpWW9LmXJHgQ",
+    "CAACAgUAAxkBAAIBPWi1SpxJZKxuWYsZ_G06j_G_9QGkAAIsHwACdd6xVd2HOWQPA_qtHgQ",
+    "CAACAgUAAxkBAAIBPmi1Sp4QFoLkZ0oN3d01kZQOHQRwAAI4FwACDDexVVp91U_1BZKFHgQ",
+    "CAACAgUAAxkBAAIBP2i1SqFoa4yqgl1QSISZrQ4VuYWgAAIpFQACvTqpVWqbFSKOnWYxHgQ",
+    "CAACAgUAAxkBAAIBQGi1Sqk3OGQ2jRW2rN6ZVZ7vWY2ZAAJZHQACCa-pVfefqZZtTHEdHgQ",
+]
 
-🎧 24x7 Non-Stop Music
-🚀 Ultra Fast Streaming
-🔥 Zero Lag Performance
-👑 Powered By {1}
+EFFECT_IDS = [
+    5046509860389126442,
+    5107584321108051014,
+    5104841245755180586,
+    5159385139981059251,
+]
 
-💣 Haters Watching... Legends Using.
-"""
-
-START_CAPTION_GROUP = """
-💥 𝐁𝐎𝐎𝐌 𝐁𝐎𝐎𝐌 💥
-
-{0} 𝗜𝘀 𝗡𝗼𝘄 𝗔𝗰𝘁𝗶𝘃𝗲 ⚡
-
-⏳ Uptime : {1}
-🎶 Ready To Rule This Chat
-👑 Let’s Make This Group Legendary
-"""
-
-
-async def change_img():
-    while True:
-        await asyncio.sleep(5)
-        if hasattr(config, "START_IMAGES"):
-            random.shuffle(config.START_IMAGES)
-
+emojis = ["🥰", "🔥", "💖", "😁", "😎", "🌚", "❤️‍🔥", "♥️", "🎉", "🙈"]
 
 @app.on_message(filters.command(["start"]) & filters.private & ~BANNED_USERS)
 @LanguageStart
 async def start_pm(client, message: Message, _):
     await add_served_user(message.from_user.id)
-    await message.react("🔥")
+
+    await message.react(random.choice(emojis))
+
+    sticker = await message.reply_sticker(random.choice(REVANGE_STKR))
+    await asyncio.sleep(1)
+    await sticker.delete()
 
     if len(message.text.split()) > 1:
-        param = message.text.split(None, 1)[1]
+        name = message.text.split(None, 1)[1]
 
-        # HELP PANEL
-        if param.startswith("help"):
+        if name.startswith("help"):
             keyboard = help_pannel(_)
             return await message.reply_photo(
-                photo=config.START_IMG_URL,
-                caption="💥 𝐁𝐎𝐎𝐌 💥\n\nNeed Help? I Got You 😎",
+                random.choice(NEXIO),
+                message_effect_id=random.choice(EFFECT_IDS),
+                caption=_["help_1"].format(config.SUPPORT_CHAT),
                 reply_markup=keyboard,
             )
 
-        # SUDO LIST
-        if param.startswith("sud"):
+        if name.startswith("sud"):
             await sudoers_list(client=client, message=message, _=_)
+            if await is_on_off(2):
+                return await app.send_message(
+                    chat_id=config.LOGGER_ID,
+                    text=f"{message.from_user.mention} ᴊᴜsᴛ sᴛᴀʀᴛᴇᴅ ᴛʜᴇ ʙᴏᴛ ᴛᴏ ᴄʜᴇᴄᴋ <b>sᴜᴅᴏʟɪsᴛ</b>.\n\n<b>ᴜsᴇʀ ɪᴅ :</b> <code>{message.from_user.id}</code>\n<b>ᴜsᴇʀɴᴀᴍᴇ :</b> @{message.from_user.username}",
+                )
             return
 
-        # TRACK INFO
-        if param.startswith("inf"):
-            m = await message.reply_text("🔍 Searching Boom Track...")
-            query = param.replace("info_", "", 1)
+        if name.startswith("inf"):
+            m = await message.reply_text("🔎")
+            query = (str(name)).replace("info_", "", 1)
             query = f"https://www.youtube.com/watch?v={query}"
-
             results = VideosSearch(query, limit=1)
-            data = (await results.next())["result"][0]
+            for result in (await results.next())["result"]:
+                title = result["title"]
+                duration = result["duration"]
+                views = result["viewCount"]["short"]
+                thumbnail = result["thumbnails"][0]["url"].split("?")[0]
+                channellink = result["channel"]["link"]
+                channel = result["channel"]["name"]
+                link = result["link"]
+                published = result["publishedTime"]
 
-            caption = f"""
-💥 𝐓𝐑𝐀𝐂𝐊 𝐈𝐍𝐅𝐎 💥
-
-🎵 Title : {data['title']}
-⏱ Duration : {data['duration']}
-👁 Views : {data['viewCount']['short']}
-📅 Uploaded : {data['publishedTime']}
-
-🔥 Powered By {app.mention}
-"""
-
-            buttons = InlineKeyboardMarkup(
+            searched_text = _["start_6"].format(
+                title, duration, views, published, channellink, channel, app.mention
+            )
+            key = InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton("🎧 Watch Now", url=data["link"]),
-                        InlineKeyboardButton("💬 Support", url=config.SUPPORT_CHAT),
-                    ]
+                        InlineKeyboardButton(text=_["S_B_8"], url=link),
+                        InlineKeyboardButton(text=_["S_B_9"], url=config.SUPPORT_CHAT),
+                    ],
                 ]
             )
-
             await m.delete()
             return await app.send_photo(
                 chat_id=message.chat.id,
-                photo=data["thumbnails"][0]["url"].split("?")[0],
-                caption=caption,
-                reply_markup=buttons,
+                photo=thumbnail,
+                message_effect_id=random.choice(EFFECT_IDS),
+                caption=searched_text,
+                reply_markup=key,
+            )
+            if await is_on_off(2):
+                return await app.send_message(
+                    chat_id=config.LOGGER_ID,
+                    text=f"{message.from_user.mention} ᴊᴜsᴛ sᴛᴀʀᴛᴇᴅ ᴛʜᴇ ʙᴏᴛ ᴛᴏ ᴄʜᴇᴄᴋ <b>ᴛʀᴀᴄᴋ ɪɴғᴏʀᴍᴀᴛɪᴏɴ</b>.\n\n<b>ᴜsᴇʀ ɪᴅ :</b> <code>{message.from_user.id}</code>\n<b>ᴜsᴇʀɴᴀᴍᴇ :</b> @{message.from_user.username}",
+                )
+
+    else:
+        REVANGE = await message.reply_text(f"**ʜᴇʏ ʙᴧʙʏ {message.from_user.mention}**")
+        await asyncio.sleep(0.4)
+        await REVANGE.edit_text("**ɪ ᴧᴍ ʏᴏᴜʀ ᴏᴡɴ ᴍᴜsɪᴄ ʙᴏᴛ..🦋**")
+        await asyncio.sleep(0.4)
+        await REVANGE.edit_text("**ʜᴏᴡ ᴧʀᴇ ʏᴏᴜ ᴛᴏᴅᴧʏ.....??**")
+        await asyncio.sleep(0.4)
+        await REVANGE.delete()
+
+        out = private_panel(_)
+        await message.reply_photo(
+            random.choice(NEXIO),
+            message_effect_id=random.choice(EFFECT_IDS),
+            caption=_["start_2"].format(message.from_user.mention, app.mention),
+            reply_markup=InlineKeyboardMarkup(out),
+        )
+        if await is_on_off(2):
+            return await app.send_message(
+                chat_id=config.LOGGER_ID,
+                text=f"{message.from_user.mention} ᴊᴜsᴛ sᴛᴀʀᴛᴇᴅ ᴛʜᴇ ʙᴏᴛ.\n\n<b>ᴜsᴇʀ ɪᴅ :</b> <code>{message.from_user.id}</code>\n<b>ᴜsᴇʀɴᴀᴍᴇ :</b> @{message.from_user.username}",
             )
 
-    # NORMAL START
-    buttons = private_panel(_)
-
-    await message.reply_photo(
-        photo=config.START_IMG_URL,
-        caption=START_CAPTION_PM.format(
-            message.from_user.mention,
-            app.mention,
-        ),
-        message_effect_id=random.choice(EFFECT_ID),
-        reply_markup=InlineKeyboardMarkup(buttons),
-    )
 
 
 @app.on_message(filters.command(["start"]) & filters.group & ~BANNED_USERS)
 @LanguageStart
 async def start_gp(client, message: Message, _):
+    out = start_panel(_)
     uptime = int(time.time() - _boot_)
-    buttons = start_panel(_)
-
     await message.reply_photo(
-        photo=config.START_IMG_URL,
-        caption=START_CAPTION_GROUP.format(
-            app.mention,
-            get_readable_time(uptime),
-        ),
-        reply_markup=InlineKeyboardMarkup(buttons),
+        random.choice(NEXIO),
+        caption=_["start_1"].format(app.mention, get_readable_time(uptime)),
+        reply_markup=InlineKeyboardMarkup(out),
     )
-
-    await add_served_chat(message.chat.id)
+    return await add_served_chat(message.chat.id)
 
 
 @app.on_message(filters.new_chat_members, group=-1)
@@ -161,34 +178,38 @@ async def welcome(client, message: Message):
         try:
             language = await get_lang(message.chat.id)
             _ = get_string(language)
-
             if await is_banned_user(member.id):
-                await message.chat.ban_member(member.id)
-                continue
-
+                try:
+                    await message.chat.ban_member(member.id)
+                except:
+                    pass
             if member.id == app.id:
                 if message.chat.type != ChatType.SUPERGROUP:
-                    await message.reply_text("❌ Supergroup Required Bro!")
+                    await message.reply_text(_["start_4"])
                     return await app.leave_chat(message.chat.id)
-
                 if message.chat.id in await blacklisted_chats():
-                    await message.reply_text("🚫 This Chat Is Blacklisted.")
+                    await message.reply_text(
+                        _["start_5"].format(
+                            app.mention,
+                            f"https://t.me/{app.username}?start=sudolist",
+                            config.SUPPORT_CHAT,
+                        ),
+                        disable_web_page_preview=True,
+                    )
                     return await app.leave_chat(message.chat.id)
 
+                out = start_panel(_)
                 await message.reply_photo(
-                    photo=config.START_IMG_URL,
-                    caption=f"""
-💥 𝐁𝐎𝐎𝐌 𝐄𝐍𝐓𝐑𝐘 💥
-
-Thanks {message.from_user.first_name} For Adding Me 😎
-
-🔥 Now Let’s Rock {message.chat.title}
-👑 Powered By {app.mention}
-""",
+                    random.choice(NEXIO),
+                    caption=_["start_3"].format(
+                        message.from_user.mention,
+                        app.mention,
+                        message.chat.title,
+                        app.mention,
+                    ),
+                    reply_markup=InlineKeyboardMarkup(out),
                 )
-
                 await add_served_chat(message.chat.id)
                 await message.stop_propagation()
-
-        except Exception as e:
-            print(e)
+        except Exception as ex:
+            print(ex)
