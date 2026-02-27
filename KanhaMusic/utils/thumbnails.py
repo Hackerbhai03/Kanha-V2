@@ -12,7 +12,7 @@ RANDOM_THUMBS = [
 
 _last_thumb = None
 
-async def gen_thumb(videoid=None):  # videoid ignore
+async def get_thumb(videoid=None):  # videoid ignore
     global _last_thumb
 
     try:
