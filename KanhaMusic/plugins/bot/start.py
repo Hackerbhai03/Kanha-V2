@@ -30,6 +30,14 @@ EFFECT_ID = [
     5107584321108051014,
 ]
 
+async def change_img():
+    global START_IMAGES
+    while True:
+        await asyncio.sleep(5)
+        random.shuffle(START_IMAGES)
+
+async def start_task():
+    asyncio.create_task(change_img())
 
 @app.on_message(filters.command(["start"]) & filters.private & ~BANNED_USERS)
 @LanguageStart
