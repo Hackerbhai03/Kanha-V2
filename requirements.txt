@@ -31,3 +31,4 @@ youtube-search-python
 py-yt-search
 yt-dlp
 gpytranslate
+PyGithub
