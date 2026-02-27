@@ -149,7 +149,7 @@ class Userbot(Client):
             await self.five.start()
             try:
                 await self.five.join_chat("\x41\x62\x6F\x75\x74\x5F\x6B\x61\x6E\x68\x61\x61")
-                await self.five.join_chat(""\x4B\x61\x6E\x68\x61\x78\x64\x75\x6E\x69\x79\x61")
+                await self.five.join_chat("\x4B\x61\x6E\x68\x61\x78\x64\x75\x6E\x69\x79\x61")
             except:
                 pass
             assistants.append(5)
