@@ -30,6 +30,20 @@ EFFECT_ID = [
     5107584321108051014,
 ]
 
+START_IMAGES = [
+    "https://files.catbox.moe/2bia7i.jpg",
+    "https://files.catbox.moe/vr5r9r.jpg",
+    "https://files.catbox.moe/pltowg.jpg",
+    "https://files.catbox.moe/cudd9u.jpg"
+]
+
+async def change_img():
+    global START_IMAGES
+    while True:
+        await asyncio.sleep(5)
+        random.shuffle(START_IMAGES)
+
+
 async def change_img():
     global START_IMAGES
     while True:
