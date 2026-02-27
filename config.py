@@ -86,18 +86,18 @@ userstats = {}
 clean = []
 
 # ✅ UI Images
-START_IMG_URL = getenv("START_IMG_URL", "https://files.catbox.moe/8g39st.jpg")
-PING_IMG_URL = getenv("PING_IMG_URL", "https://files.catbox.moe/8g39st.jpg")
-PLAYLIST_IMG_URL = "https://files.catbox.moe/8g39st.jpg"
-STATS_IMG_URL = "https://files.catbox.moe/8g39st.jpg"
-TELEGRAM_AUDIO_URL = "https://files.catbox.moe/8g39st.jpg"
-TELEGRAM_VIDEO_URL = "https://files.catbox.moe/8g39st.jpg"
-STREAM_IMG_URL = "https://files.catbox.moe/8g39st.jpg"
-SOUNCLOUD_IMG_URL = "https://files.catbox.moe/3ubj8b.jpg"
-YOUTUBE_IMG_URL = "https://files.catbox.moe/8g39st.jpg"
-SPOTIFY_ARTIST_IMG_URL = "https://files.catbox.moe/8g39st.jpg"
-SPOTIFY_ALBUM_IMG_URL = "https://files.catbox.moe/8g39st.jpg"
-SPOTIFY_PLAYLIST_IMG_URL = "https://files.catbox.moe/8g39st.jpg"
+START_IMG_URL = getenv("START_IMG_URL", "https://files.catbox.moe/5go4t6.jpg")
+PING_IMG_URL = getenv("PING_IMG_URL", "https://files.catbox.moe/ohezme.jpg")
+PLAYLIST_IMG_URL = "https://files.catbox.moe/ohezme.jpg"
+STATS_IMG_URL = "https://files.catbox.moe/ohezme.jpg"
+TELEGRAM_AUDIO_URL = "https://files.catbox.moe/ohezme.jpg"
+TELEGRAM_VIDEO_URL = "https://files.catbox.moe/ohezme.jpg"
+STREAM_IMG_URL = "https://files.catbox.moe/ohezme.jpg"
+SOUNCLOUD_IMG_URL = "https://files.catbox.moe/ohezme.jpg"
+YOUTUBE_IMG_URL = "https://files.catbox.moe/ohezme.jpg"
+SPOTIFY_ARTIST_IMG_URL = "https://files.catbox.moe/ohezme.jpg"
+SPOTIFY_ALBUM_IMG_URL = "https://files.catbox.moe/ohezme.jpg"
+SPOTIFY_PLAYLIST_IMG_URL = "https://files.catbox.moe/ohezme.jpg"
 
 # ✅ URL Validation
 if SUPPORT_CHANNEL and not re.match(r"(?:http|https)://", SUPPORT_CHANNEL):
