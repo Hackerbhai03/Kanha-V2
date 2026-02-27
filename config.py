@@ -49,7 +49,8 @@ SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/kanhxduniya")
 # YT-API 
 API_URL = getenv("API_URL", 'https://api.nexgenbots.xyz') #youtube song url
 VIDEO_API_URL = getenv("VIDEO_API_URL", 'https://api.video.nexgenbots.xyz')
-API_KEY = getenv("API_KEY", "NxGBNexGenBots67b7b6") 
+API_KEY = getenv("API_KEY", '30DxNexGenBotsbad164') # youtube song api key, generate free key or buy paid plan from https://console.nexgenbots.xyz
+
 
 # ✅ Auto Features
 AUTO_LEAVING_ASSISTANT = bool(getenv("AUTO_LEAVING_ASSISTANT", False))
