@@ -21,21 +21,27 @@ async def is_admin(_, __, message):
 async def brah(_, msg):
     text = "**🫣 ᴠɪᴅᴇᴏ ᴄʜᴀᴛ sᴛᴀʀᴛᴇᴅ 😆**"
     add_link = f"https://t.me/{app.username}?startgroup=true"
+    reply_text = f"{text}"
+
     reply_markup = InlineKeyboardMarkup([
         [InlineKeyboardButton(text="๏ ᴊσɪη ᴠᴄ ๏", url=add_link)]
     ])
-    await msg.reply(text, reply_markup=reply_markup)
+
+    await msg.reply(reply_text, reply_markup=reply_markup)
+
 
 
 @app.on_message(filters.video_chat_ended)
 async def brah2(_, msg: Message):
     text = "**😤 ᴠɪᴅᴇᴏ ᴄʜᴀᴛ ᴇɴᴅᴇᴅ 🙁**"
     add_link = f"https://t.me/{app.username}?startgroup=true"
+    reply_text = f"{text}"
+
     reply_markup = InlineKeyboardMarkup([
         [InlineKeyboardButton(text="๏ ᴧᴅᴅ ϻє вᴧвყ ๏", url=add_link)]
     ])
-    await msg.reply(text, reply_markup=reply_markup)
 
+    await msg.reply(reply_text, reply_markup=reply_markup)
 
 @app.on_message(filters.video_chat_members_invited)
 async def brah3(app: app, message: Message):
@@ -46,17 +52,19 @@ async def brah3(app: app, message: Message):
             text += f"[{user.first_name}](tg://user?id={user.id}) "
             x += 1
         except Exception:
-            continue
+            pass
 
     try:
         invite_link = await app.export_chat_invite_link(message.chat.id)
         add_link = f"https://t.me/{app.username}?startgroup=true"
         reply_text = f"{text} 🤭🤭"
+
         await message.reply(reply_text, reply_markup=InlineKeyboardMarkup([
-            [InlineKeyboardButton(text="๏ ᴊσɪη ᴠᴄ ๏", url=add_link)],
+            [InlineKeyboardButton(text= "๏ ᴊσɪη ᴠᴄ ๏", url=add_link)],
         ]))
     except Exception as e:
         print(f"Error: {e}")
+
 
 
 @app.on_message(
