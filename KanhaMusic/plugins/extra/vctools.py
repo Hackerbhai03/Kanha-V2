@@ -1,86 +1,79 @@
+```
 from pyrogram import Client, filters
-from pyrogram.types import Message
+from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup
+from pyrogram.enums import ChatType, ChatMemberStatus
 from KanhaMusic import app
 from config import OWNER_ID
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from pyrogram.enums import ChatType, ChatMemberStatus
 from strings import get_string
 from KanhaMusic.utils import KanhaBin
-from KanhaMusic.utils.database import get_assistant, get_lang
+from KanhaMusic.utils.database import get_assistant
 from KanhaMusic.core.call import Kanha
 
+# ─── Admin Checker ─── #
 async def is_admin(_, __, message):
     try:
-        chat_member = await message.chat.get_member(message.from_user.id)
-        return chat_member.status in (ChatMemberStatus.ADMINISTRATOR, ChatMemberStatus.OWNER)
+        member = await message.chat.get_member(message.from_user.id)
+        return member.status in (ChatMemberStatus.ADMINISTRATOR, ChatMemberStatus.OWNER)
     except:
         return False
 
 
+# ─── VC STARTED ─── #
 @app.on_message(filters.video_chat_started)
-async def brah(_, msg):
-    text = "**🫣 ᴠɪᴅᴇᴏ ᴄʜᴀᴛ sᴛᴀʀᴛᴇᴅ 😆**"
+async def vc_started(_, msg: Message):
+    text = "🫣 **𝐕𝐈𝐃𝐄𝐎 𝐂𝐇𝐀𝐓 𝐒𝐓𝐀𝐑𝐓𝐄𝐃 😆**"
     add_link = f"https://t.me/{app.username}?startgroup=true"
-    reply_text = f"{text}"
-
-    reply_markup = InlineKeyboardMarkup([
-        [InlineKeyboardButton(text="๏ ᴊσɪη ᴠᴄ ๏", url=add_link)]
-    ])
-
-    await msg.reply(reply_text, reply_markup=reply_markup)
+    reply_markup = InlineKeyboardMarkup(
+        [[InlineKeyboardButton(text="๏ 𝐉𝐎𝐈𝐍 𝐕𝐂 ๏", url=add_link)]]
+    )
+    await msg.reply(text, reply_markup=reply_markup)
 
 
-
+# ─── VC ENDED ─── #
 @app.on_message(filters.video_chat_ended)
-async def brah2(_, msg: Message):
-    text = "**😤 ᴠɪᴅᴇᴏ ᴄʜᴀᴛ ᴇɴᴅᴇᴅ 🙁**"
+async def vc_ended(_, msg: Message):
+    text = "😤 **𝐕𝐈𝐃𝐄𝐎 𝐂𝐇𝐀𝐓 𝐄𝐍𝐃𝐄𝐃 🙁**"
     add_link = f"https://t.me/{app.username}?startgroup=true"
-    reply_text = f"{text}"
+    reply_markup = InlineKeyboardMarkup(
+        [[InlineKeyboardButton(text="๏ 𝐀𝐃𝐃 𝐌𝐄 𝐁𝐀𝐁𝐘 ๏", url=add_link)]]
+    )
+    await msg.reply(text, reply_markup=reply_markup)
 
-    reply_markup = InlineKeyboardMarkup([
-        [InlineKeyboardButton(text="๏ ᴧᴅᴅ ϻє вᴧвყ ๏", url=add_link)]
-    ])
 
-    await msg.reply(reply_text, reply_markup=reply_markup)
-
+# ─── VC MEMBERS INVITED ─── #
 @app.on_message(filters.video_chat_members_invited)
-async def brah3(app: app, message: Message):
-    text = f"➠ {message.from_user.mention}\n\n**๏ ɪɴᴠɪᴛɪɴɢ ɪɴ ᴠᴄ ᴛᴏ ๏**\n\n**➠ **"
-    x = 0
-    for user in message.video_chat_members_invited.users:
+async def vc_invited(_, msg: Message):
+    text = f"➠ {msg.from_user.mention}\n\n**๏ 𝐈𝐍𝐕𝐈𝐓𝐈𝐍𝐆 𝐓𝐎 𝐕𝐂 ๏**\n\n"
+    for user in msg.video_chat_members_invited.users:
         try:
             text += f"[{user.first_name}](tg://user?id={user.id}) "
-            x += 1
-        except Exception:
-            pass
+        except:
+            continue
 
-    try:
-        invite_link = await app.export_chat_invite_link(message.chat.id)
-        add_link = f"https://t.me/{app.username}?startgroup=true"
-        reply_text = f"{text} 🤭🤭"
-
-        await message.reply(reply_text, reply_markup=InlineKeyboardMarkup([
-            [InlineKeyboardButton(text= "๏ ᴊσɪη ᴠᴄ ๏", url=add_link)],
-        ]))
-    except Exception as e:
-        print(f"Error: {e}")
+    add_link = f"https://t.me/{app.username}?startgroup=true"
+    await msg.reply(
+        text + " 🤭🤭",
+        reply_markup=InlineKeyboardMarkup(
+            [[InlineKeyboardButton(text="๏ 𝐉𝐎𝐈𝐍 𝐕𝐂 ๏", url=add_link)]]
+        ),
+    )
 
 
-
+# ─── LIST VC MEMBERS ─── #
 @app.on_message(
     filters.command(
         ["vcuser", "vcusers", "vcmember", "vcmembers", "cu", "cm"],
         prefixes=["/", "!", ".", "V", "v"]
     ) & filters.create(is_admin)
 )
-async def vc_members(client, message):
+async def vc_members(client, message: Message):
     try:
         language = await get_lang(message.chat.id)
         _ = get_string(language)
     except:
         _ = get_string("en")
 
-    msg = await message.reply_text(_["V_C_1"])
+    msg = await message.reply("⏳ **𝐋𝐨𝐚𝐝𝐢𝐧𝐠 𝐕𝐂 𝐌𝐞𝐦𝐛𝐞𝐫𝐬...**")
     userbot = await get_assistant(message.chat.id)
     TEXT = ""
 
@@ -88,12 +81,12 @@ async def vc_members(client, message):
         async for m in userbot.get_call_members(message.chat.id):
             chat_id = m.chat.id
             username = m.chat.username
-            is_hand_raised = m.is_hand_raised
             is_video_enabled = m.is_video_enabled
-            is_left = m.is_left
             is_screen_sharing_enabled = m.is_screen_sharing_enabled
+            is_hand_raised = m.is_hand_raised
             is_muted = bool(m.is_muted and not m.can_self_unmute)
             is_speaking = not m.is_muted
+            is_left = m.is_left
 
             if m.chat.type != ChatType.PRIVATE:
                 title = m.chat.title
@@ -122,7 +115,9 @@ async def vc_members(client, message):
             link = await SonaBin(TEXT)
             await msg.edit(
                 _["V_C_4"].format(link),
-                disable_web_page_preview=True,
+                disable_web_page_preview=True
             )
+
     except ValueError:
         await msg.edit(_["V_C_5"])
+```
