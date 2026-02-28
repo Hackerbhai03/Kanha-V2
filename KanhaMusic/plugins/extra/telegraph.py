@@ -34,31 +34,31 @@ async def get_link_group(client, message):
         file_size = media.document.file_size
 
     if file_size > 200 * 1024 * 1024:
-        return await message.reply_text("ᴘʟᴇᴀsᴇ ᴘʀᴏᴠɪᴅᴇ ᴀ ᴍᴇᴅɪᴀ ғɪʟᴇ ᴜɴᴅᴇʀ 200 MB")
+        return await message.reply_text("⚠️ 𝐅ɪʟᴇ ᴍᴜsᴛ ʙᴇ ᴜɴᴅᴇʀ 𝟐𝟎𝟎 𝐌𝐁")
 
     try:
-        text = await message.reply("❍ ᴘʀᴏᴄᴇssɪɴɢ...")
+        text = await message.reply("⏳ 𝐏ʀᴏᴄᴇssɪɴɢ 𝐘ᴏᴜʀ 𝐅ɪʟᴇ...")
 
         async def progress(current, total):
             try:
-                await text.edit_text(f"❍ ᴅᴏᴡɴʟᴏᴀᴅɪɴɢ... {current * 100 / total:.1f}%")
+                await text.edit_text(f"📥 𝐃ᴏᴡɴʟᴏᴀᴅɪɴɢ...  {current * 100 / total:.1f}%")
             except Exception:
                 pass
 
         try:
             local_path = await media.download(progress=progress)
-            await text.edit_text("❍ ᴜᴘʟᴏᴀᴅɪɴɢ ᴛᴏ ᴛᴇʟᴇɢʀᴀᴘʜ...")
+            await text.edit_text("📤 𝐔ᴘʟᴏᴀᴅɪɴɢ 𝐓ᴏ 𝐓ᴇʟᴇɢʀᴀᴘʜ...")
 
             success, upload_path = upload_file(local_path)
 
             if success:
                 await text.edit_text(
-                    f"❖ | [ᴛᴇʟᴇɢʀᴀᴘʜ ʟɪɴᴋ]({upload_path}) | ❖",
+                    f"❖ | [🔗 𝐘ᴏᴜʀ 𝐋ɪɴᴋ 𝐈s 𝐑ᴇᴀᴅʏ!]({upload_path}) | ❖",
                     reply_markup=InlineKeyboardMarkup(
                         [
                             [
                                 InlineKeyboardButton(
-                                    "• ᴛᴇʟᴇɢʀᴀᴘʜ ʟɪɴᴋ •",
+                                    "🚀 𝐎ᴘᴇɴ 𝐓ᴇʟᴇɢʀᴀᴘʜ 𝐋ɪɴᴋ",
                                     url=upload_path,
                                 )
                             ]
@@ -67,7 +67,7 @@ async def get_link_group(client, message):
                 )
             else:
                 await text.edit_text(
-                    f"❖ ᴀɴ ᴇʀʀᴏʀ ᴏᴄᴄᴜʀʀᴇᴅ ᴡʜɪʟᴇ ᴜᴘʟᴏᴀᴅɪɴɢ ʏᴏᴜʀ ғɪʟᴇ\n{upload_path}"
+                    f"⚠️ 𝐒ᴏᴍᴇᴛʜɪɴɢ 𝐖ᴇɴᴛ 𝐖ʀᴏɴɢ!\n{upload_path}"
                 )
 
             try:
@@ -76,7 +76,7 @@ async def get_link_group(client, message):
                 pass
 
         except Exception as e:
-            await text.edit_text(f"❖ | ғɪʟᴇ ᴜᴘʟᴏᴀᴅ ғᴀɪʟᴇᴅ\n\n<i>❍ ʀᴇᴀsᴏɴ : {e}</i>")
+            await text.edit_text(f"❖ | ❌ 𝐔ᴘʟᴏᴀᴅ 𝐅ᴀɪʟᴇᴅ\n\n<i>❍ ʀᴇᴀsᴏɴ : {e}</i>")
             try:
                 os.remove(local_path)
             except Exception:
