@@ -156,7 +156,7 @@ async def stop_group_call(c: Client, m: Message):
 @app.on_message(filters.video_chat_started & filters.group)
 async def auto_vc_started(client: Client, message: Message):
     await message.reply_text(
-        f"📌 𝐁𝐥𝐨𝐜𝐤 𝐐𝐮𝐨𝐭𝐞 Style\n"
+      
         f"> 🎥 𝐕𝐎𝐈𝐂𝐄 𝐂𝐇𝐀𝐓 𝐈𝐒 𝐍𝐎𝐖 𝐋𝐈𝐕𝐄 👑\n"
         f"> 🏷 {message.chat.title}\n"
         f"> ⚡ Join Now & Enjoy The Session!"
@@ -169,7 +169,7 @@ async def auto_vc_started(client: Client, message: Message):
 @app.on_message(filters.video_chat_ended & filters.group)
 async def auto_vc_ended(client: Client, message: Message):
     await message.reply_text(
-        f"📌 𝐁𝐥𝐨𝐜𝐤 𝐐𝐮𝐨𝐭𝐞 Style\n"
+        
         f"> 🛑 𝐕𝐎𝐈𝐂𝐄 𝐂𝐇𝐀𝐓 𝐇𝐀𝐒 𝐄𝐍𝐃𝐄𝐃 👋\n"
         f"> 🏷 {message.chat.title}\n"
         f"> 🔥 See You In Next Session!"
