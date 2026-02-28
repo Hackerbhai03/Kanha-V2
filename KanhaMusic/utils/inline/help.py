@@ -96,7 +96,7 @@ def oyekanha_markup(_):
         [InlineKeyboardButton("ᴏᴡɴᴇʀ",   user_id=config.OWNER_ID)],
         [
             InlineKeyboardButton("sᴜᴘᴘᴏʀᴛ", url="https://t.me/KanhaXDuniya"),
-            InlineKeyboardButton("ᴜᴘᴅᴀᴛᴇs", url="https://t.me/aboutkanhaa")
+            InlineKeyboardButton("ᴜᴘᴅᴀᴛᴇs", url="https://t.me/About_kanhaa")
         ],
         [InlineKeyboardButton(_["BACK_BUTTON"], callback_data="settingsback_helper")]
     ])
