@@ -19,14 +19,16 @@ from pyrogram import filters
 from KanhaMusic import app
 from KanhaMusic.misc import SUDOERS
 
-
 @app.on_message(filters.command("clean") & SUDOERS)
 async def clean(_, message):
-    A = await message.reply_text("ᴄʟᴇᴀɴɪɴɢ ᴛᴇᴍᴘ ᴅɪʀᴇᴄᴛᴏʀɪᴇs...")
-    dir = "downloads"
-    dir1 = "cache"
-    shutil.rmtree(dir)
-    shutil.rmtree(dir1)
-    os.mkdir(dir)
-    os.mkdir(dir1)
-    await A.edit("ᴛᴇᴍᴘ ᴅɪʀᴇᴄᴛᴏʀɪᴇs ᴀʀᴇ ᴄʟᴇᴀɴᴇᴅ")
+    status_msg = await message.reply_text("🧹 **ᴄʟᴇᴀɴɪɴɢ ᴛᴇᴍᴘ ᴅɪʀᴇᴄᴛᴏʀɪᴇs...**")
+
+    folders = ["downloads", "cache"]
+
+    for folder in folders:
+        # Agar folder exist kare to delete aur create kare
+        if os.path.exists(folder):
+            shutil.rmtree(folder)
+        os.mkdir(folder)
+
+    await status_msg.edit("✅ **ᴛᴇᴍᴘ ᴅɪʀᴇᴄᴛᴏʀɪᴇs ᴀʀᴇ ᴄʟᴇᴀɴᴇᴅ**")
