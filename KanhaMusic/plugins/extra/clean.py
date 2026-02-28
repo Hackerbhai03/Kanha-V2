@@ -21,14 +21,16 @@ from KanhaMusic.misc import SUDOERS
 
 @app.on_message(filters.command("clean") & SUDOERS)
 async def clean(_, message):
-    status_msg = await message.reply_text("🧹 **ᴄʟᴇᴀɴɪɴɢ ᴛᴇᴍᴘ ᴅɪʀᴇᴄᴛᴏʀɪᴇs...**")
+    # Step 1: Status message in Open Telegraph style
+    status_msg = await message.reply_text("🧹 **𝐂ʟᴇᴀɴɪɴɢ 𝐓ᴇᴍᴘ 𝐃ɪʀᴇᴄᴛᴏʀɪᴇs...**")
 
     folders = ["downloads", "cache"]
 
+    # Step 2: Safely delete and recreate folders
     for folder in folders:
-        # Agar folder exist kare to delete aur create kare
         if os.path.exists(folder):
             shutil.rmtree(folder)
-        os.mkdir(folder)
+        os.makedirs(folder, exist_ok=True)
 
-    await status_msg.edit("✅ **ᴛᴇᴍᴘ ᴅɪʀᴇᴄᴛᴏʀɪᴇs ᴀʀᴇ ᴄʟᴇᴀɴᴇᴅ**")
+    # Step 3: Done message in Open Telegraph style
+    await status_msg.edit("✅ **𝐓ᴇᴍᴘ 𝐃ɪʀᴇᴄᴛᴏʀɪᴇs 𝐀ʀᴇ 𝐂ʟᴇᴀɴᴇᴅ!**")
