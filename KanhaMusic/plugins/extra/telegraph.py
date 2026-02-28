@@ -14,14 +14,14 @@ def upload_file(file_path):
     if response.status_code == 200:
         return True, response.text.strip()
     else:
-        return False, f"❖ ᴇʀʀᴏʀ : {response.status_code} - {response.text}"
+        return False, f"❖ 𝐄ʀʀᴏʀ : {response.status_code} - {response.text}"
 
 
 @app.on_message(filters.command(["tgm", "tgt", "telegraph", "tl"]))
 async def get_link_group(client, message):
     if not message.reply_to_message:
         return await message.reply_text(
-            "❖ ᴘʟᴇᴀsᴇ ʀᴇᴘʟʏ ᴛᴏ ᴀ ᴍᴇᴅɪᴀ ᴛᴏ ᴜᴘʟᴏᴀᴅ ᴏɴ ᴛᴇʟᴇɢʀᴀᴘʜ"
+            "❌ 𝐑ᴇᴘʟʏ ᴛᴏ ᴀ 𝐌ᴇᴅɪᴀ ғɪʟᴇ ᴛᴏ ᴜᴘʟᴏᴀᴅ ɪᴛ ✨"
         )
 
     media = message.reply_to_message
