@@ -29,7 +29,7 @@ EFFECT_ID = [
     5104841245755180586,
     5107584321108051014,
 ]
-Aashiktm = [
+Kanha = [
     "https://files.catbox.moe/ard90z.jpg",
     "https://files.catbox.moe/uic4sp.jpg",
     "https://files.catbox.moe/z1t0it.jpg"
