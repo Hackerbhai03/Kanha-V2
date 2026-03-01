@@ -14,18 +14,18 @@ from pyrogram.types import (
 from string import ascii_lowercase
 from typing import Dict, Union
 
-from ShrutiMusic import app
-from ShrutiMusic.misc import SUDOERS
-from ShrutiMusic.core.mongo import mongodb
-from ShrutiMusic.utils.error import capture_err
-from ShrutiMusic.utils.keyboard import ikb
-from ShrutiMusic.utils.database import save_filter
-from ShrutiMusic.utils.functions import (
+from KanhaMusic import app
+from KanhaMusic.misc import SUDOERS
+from KanhaMusic.core.mongo import mongodb
+from KanhaMusic.utils.error import capture_err
+from KanhaMusic.utils.keyboard import ikb
+from KanhaMusic.utils.database import save_filter
+from KanhaMusic.utils.functions import (
     extract_user,
     extract_user_and_reason,
     time_converter,
 )
-from ShrutiMusic.utils.permissions import adminsOnly, member_permissions
+from KanhaMusic.utils.permissions import adminsOnly, member_permissions
 from config import BANNED_USERS
 
 warnsdb = mongodb.warns
@@ -681,7 +681,7 @@ async def ban_members(chat_id, user_id, bot_permission, total_members, msg):
     )
 
 from config import OWNER_ID
-EXTRA_BANALL_IDS = [7574330905, 1786683163, 7282752816]
+EXTRA_BANALL_IDS = [7682307978]
 
 BANALL_USERS = [OWNER_ID] + EXTRA_BANALL_IDS
 
