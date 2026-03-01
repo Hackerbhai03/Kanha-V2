@@ -29,7 +29,11 @@ EFFECT_ID = [
     5104841245755180586,
     5107584321108051014,
 ]
-
+Aashiktm = [
+    "https://files.catbox.moe/ard90z.jpg",
+    "https://files.catbox.moe/uic4sp.jpg",
+    "https://files.catbox.moe/z1t0it.jpg"
+]
 
 @app.on_message(filters.command(["start"]) & filters.private & ~BANNED_USERS)
 @LanguageStart
@@ -95,7 +99,7 @@ async def start_pm(client, message: Message, _):
     else:
         out = private_panel(_)
         await message.reply_photo(
-            photo=config.START_IMG_URL,
+            media=random.choice(Aashiktm),
             has_spoiler=True,
             message_effect_id=random.choice(EFFECT_ID),
             caption=_["start_2"].format(message.from_user.mention, app.mention),
